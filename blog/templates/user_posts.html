@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Mis Publicaciones </h1>
+<!--<ul>
+{% for post in object_list %}
+	{% if user.id == post.author.id %}
+		<br/>
+		{% if post.estado == "b" %}
+			<button type="button" class="btn btn-warning">Borrador</button>
+		{% else %}
+			<button type="button" class="btn btn-success">Publico</button>
+		{% endif %}
+			<li>
+				<a href="{% url 'article-detail' post.pk %}">{{post.title}}</a>
+
+				 - <a href="{% url 'category' post.category %}">{{ post.category }}</a>
+				 - {{post.author.first_name}}
+				{{post.author.last_name}} - {{post.post_date}} -
+
+				
+				
+
+				{% if user.is_authenticated %}
+					{% if user.id == post.author.id or user.is_superuser %}
+						-<a href="{% url 'update_post' post.pk %}">(Edit)</a> 
+						<a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+					{% endif %}
+				{% endif %}
+					<br/>
+				{{ post.snippet }}
+			</li>
+	{% endif %}
+{% endfor %}
+</ul>-->
+
+
+
+<div>
+{% for post in object_list %}
+	{% if user.id == post.author.id %}
+	<div class="card">
+
+		<!--{% if post.header_image %}
+			<img src="{{ post.header_image.url }}" class="card-img-top" style="max-height: 200px;" alt="...">
+		{% endif %}-->
+		
+		<div class="card-body">
+			{% if post.estado == "b" %}
+				<div   style="width: auto; height: 100 px;">
+					<h6 class="p-3 mb-2 bg-warning text-dark">Borrador (solo tu puedes ver el post)</h6>
+				</div>
+			{% endif %}
+			<div>
+				<strong class="d-inline-block mb-2 text-primary">
+					<a href="{% url 'category' post.category %}" style="text-decoration: none;">{{ post.category }}</a>
+				</strong>
+			    <h4 class="mb-0">
+			    	<a class="text-dark" href="{% url 'article-detail' post.pk %}" style="text-decoration: none;">{{post.title}}</a>
+				</h4>
+			    <h6>
+			    	<a href="{% url 'article-detail' post.pk %}">Leer mas...</a>
+			    </h6>
+			    <p class="card-text"><small class="text-muted">{{post.author.first_name}} {{post.author.last_name}} - {{post.post_date}}</small>
+			    </p>
+			    {% if user.is_authenticated %}
+					{% if user.id == post.author.id or user.is_superuser %}
+						<hr>
+						<div class="align-bottom">
+							<div class="float-end">
+								<a  class="btn btn-outline-warning" href="{% url 'update_post' post.pk %}">Editar</a> 
+								<a class="btn btn-outline-danger"  href="{% url 'delete_post' post.pk %}">Borrar</a>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
+			</div>					   	
+		</div>
+	</div>
+	{% endif %}
+	<br/>
+{% endfor %}
+
+</div> 
+
+
+
+
+
+
+
+
+{% endblock %}

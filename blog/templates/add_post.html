@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title%}Crear un nuevo Post{% endblock %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+	{% if user.is_superuser or user.tipousuario.tipo == "admin" or user.tipousuario.tipo == "escritor" %}
+	<h1>Nuevo Post</h1>
+	<br/><br/>
+	<div >
+		<div class="form-group">
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.media }}
+				{{ form.as_p }}
+				<button class="btn btn-secondary">Publicar</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var name = "{{user.id}}	"
+		document.getElementById("authflag").value = name;
+	</script>
+	{% endif %}
+{% else %}
+No deberias estar aqui! (y lo sabes...)
+{% endif %}
+<br/><br/><br/>
+
+
+
+{% endblock %}

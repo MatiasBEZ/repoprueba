@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<h1>Perfil de Usuario</h1>
+
+
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-2">
+    {% if page_user.profile_pic %}
+      <img src="{{ page_user.profile_pic.url}}" class="img-fluid rounded-start">
+    {% else %}
+    	<img src="{% static 'profilepic.png' %}" class="img-fluid rounded-start">
+    {% endif %}
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">
+        	{{page_user.user.first_name}}
+			{{page_user.user.last_name}}
+        </h5>
+        <p class="small text-muted">
+      
+        	{% if post.author.profile.website_url%}
+        	<a href="{{ page_user.website_url}}">Youtube</a>
+        	{% endif %}
+        </p>
+        <p class="card-text">{{page_user.bio}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br/><br/><br/><br/><br/><br/>
+
+{% endblock%}

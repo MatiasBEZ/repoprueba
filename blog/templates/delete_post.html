@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title%}Eliminar un Post{% endblock %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id or user.is_superuser or user.tipousuario.tipo == "admin" %}
+		<h1>Eliminar Post</h1>
+		<br/><br/>
+		<h3>Delete: {{post.title}}</h3>
+
+		<br/>
+		<div >
+			<div class="form-group">
+				<form method="POST">
+					{% csrf_token %}
+					<strong>Estas seguro?</strong><br/><br/>
+					<button class="btn btn-secondary">Eliminar Post!</button>
+				</form>
+			</div>
+		</div>
+	{% else %}
+		No tienes acceso a este sitio!
+	{% endif %}
+{% else %}
+No deberias estar aqui! (y lo sabes...)
+{% endif %}
+<br/><br/><br/><br/><br/><br/>
+
+{% endblock %}
